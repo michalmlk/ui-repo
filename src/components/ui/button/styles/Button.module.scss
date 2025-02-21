@@ -1,0 +1,128 @@
+
+.button {
+  min-width: 200px;
+  height: 50px;
+  border: 3px solid black;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+  transition: all .2s ease;
+  color: #000000;
+
+  &:hover {
+    cursor: pointer;
+
+    span {
+      color: #ffffff;
+    }
+  }
+
+  &.statefulBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform: translateX(-100%);
+      background-color: #000000;
+      transition: all .4s ease-in;
+    }
+
+    &.standby::before {
+      transform: translateX(-100%);
+    }
+
+    &.loading::before {
+      transform: translateX(-50%);
+    }
+
+    &.finished::before {
+      transform: translateX(0);;
+    }
+
+    span {
+      position: absolute;
+      color: #000000;
+      transition: all .4s ease-in;
+    }
+
+    &.loading {
+      span {
+        color: red;
+      }
+    }
+
+    &.finished {
+      span {
+        color: #ffffff;
+      }
+    }
+
+    .labelStandby {
+      &.current {
+        transform: translateY(0);
+      }
+
+      &.previous {
+        transform: translateY(-100px);
+      }
+    }
+
+    .labelLoading {
+      transform: translateY(100px);
+
+      &.current {
+        transform: translateY(0);
+      }
+
+      &.previous {
+        transform: translateY(-100px);
+      }
+
+      &.next {
+        transform: translateY(100px);
+      }
+    }
+
+    .labelFinished {
+      transform: translateY(200px);
+      transition-delay: .1s;
+
+      &.current {
+        transform: translateY(0);
+      }
+
+      &.next {
+        transform: translateY(100px);
+      }
+    }
+  }
+
+  &.small {
+    min-width: 100px;
+    height: 35px;
+    font-size: 12px;
+  }
+
+  &.medium {
+    height: 40px;
+    min-width: 120px;
+    font-size: 16px;
+  }
+
+  &.large {
+    height: 50px;
+    min-width: 200px;
+    font-size: 18px;
+  }
+}
+
+@import './ButtonCircle.module.scss';
+@import "./ButtonAnimatedBorder.module.scss";
+@import './ButtonRectangle.module.scss';
