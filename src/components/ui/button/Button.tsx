@@ -96,9 +96,6 @@ export const LoadingButton = (props: Omit<ButtonBaseProps, 'label'>) => {
             <span className={`${styles.labelStandby} ${getProgressClassNameByState('standby')}`}>
                 Click me!
             </span>
-            <span className={`${styles.labelLoading} ${getProgressClassNameByState('loading')}`}>
-                Loading...
-            </span>
             <span className={`${styles.labelFinished} ${getProgressClassNameByState('finished')}`}>
                 Finished
             </span>
