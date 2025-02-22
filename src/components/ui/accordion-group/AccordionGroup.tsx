@@ -1,34 +1,9 @@
 import styles from './AccordionGroup.module.scss';
-import { useRef } from 'react';
-
-export interface AccordionItem {
-    title: string;
-    content: string;
-}
+import { AccordionItem, Accordion } from '../accordion/Accordion.tsx';
 
 export interface AccordionProps {
     items: AccordionItem[];
 }
-
-const Accordion = (props: AccordionItem) => {
-    const contentRef = useRef<HTMLParagraphElement>(null);
-
-    const handleToggle = (e: any) => {
-        if (e.currentTarget.open) {
-            setTimeout(() => {
-                contentRef.current?.focus();
-            }, 10);
-        }
-    };
-    return (
-        <details className={styles.details} onToggle={handleToggle}>
-            <summary>{props.title}</summary>
-            <p className={styles.content} ref={contentRef} tabIndex={2}>
-                {props.content}
-            </p>
-        </details>
-    );
-};
 
 export const AccordionGroup = ({ items }: AccordionProps) => {
     return (
