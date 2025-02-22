@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Accordion } from '../components/ui/accordion/Accordion.tsx';
+import { AccordionGroup } from '../components/ui/accordion-group/AccordionGroup.tsx';
 
 const meta = {
-    title: 'Example/Accordion',
-    component: Accordion,
+    title: 'Example/AccordionGroup',
+    component: AccordionGroup,
     // parameters: {
     //     layout: 'centered',
     // },
     tags: ['autodocs'],
     argTypes: {},
     args: { },
-} satisfies Meta<typeof Accordion>;
+} satisfies Meta<typeof AccordionGroup>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

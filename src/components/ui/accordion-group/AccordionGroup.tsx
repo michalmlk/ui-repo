@@ -1,4 +1,4 @@
-import styles from './Accordion.module.scss';
+import styles from './AccordionGroup.module.scss';
 import { useRef } from 'react';
 
 export interface AccordionItem {
@@ -10,7 +10,7 @@ export interface AccordionProps {
     items: AccordionItem[];
 }
 
-const DetailsComponent = (props: AccordionItem) => {
+const Accordion = (props: AccordionItem) => {
     const contentRef = useRef<HTMLParagraphElement>(null);
 
     const handleToggle = (e: any) => {
@@ -23,21 +23,21 @@ const DetailsComponent = (props: AccordionItem) => {
     return (
         <details className={styles.details} onToggle={handleToggle}>
             <summary>{props.title}</summary>
-            <p className={styles.content} ref={contentRef} tabIndex={-1}>
+            <p className={styles.content} ref={contentRef} tabIndex={2}>
                 {props.content}
             </p>
         </details>
     );
 };
 
-export const Accordion = ({ items }: AccordionProps) => {
+export const AccordionGroup = ({ items }: AccordionProps) => {
     return (
         <div className={styles.wrapper}>
             {items.map((item, index) => (
-                <Accordion.Child key={index} title={item.title} content={item.content} />
+                <AccordionGroup.Child key={index} title={item.title} content={item.content} />
             ))}
         </div>
     );
 };
 
-Accordion.Child = DetailsComponent;
+AccordionGroup.Child = Accordion;

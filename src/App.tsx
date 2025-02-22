@@ -1,29 +1,35 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import './App.css';
+import { AccordionGroup } from './components/ui/accordion-group/AccordionGroup.tsx';
+
+const items = [
+    {
+        title: 'Blue Sky',
+        content: 'A refreshing view of a clear blue sky with scattered clouds.',
+    },
+    {
+        title: 'Sunny Day',
+        content: 'A bright and cheerful day filled with sunshine and warmth.',
+    },
+    {
+        title: 'Mountain Peak',
+        content: 'A breathtaking panorama from the top of a rugged mountain.',
+    },
+    {
+        title: 'Ocean Breeze',
+        content: 'The soothing sound of waves and a cool ocean breeze on a summer day.',
+    },
+    {
+        title: 'Forest Walk',
+        content: 'A peaceful walk through a lush green forest with rustling leaves.',
+    },
+];
 
 function App() {
-    const [count, setCount] = useState(0);
-
     return (
         <>
             <div>
-                <a href="https://vite.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo" />
-                </a>
+                <AccordionGroup items={items} />
             </div>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
         </>
     );
 }
