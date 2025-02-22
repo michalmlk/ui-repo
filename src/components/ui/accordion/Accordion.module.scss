@@ -16,7 +16,8 @@
 .details {
   width: 100%;
   max-width: 768px;
-  border: 2px solid #ddd;
+  border: var(--accordion-border-width) solid var(--accordion-border-color);
+  border-radius: var(--accordion-border-radius);
 
   transition: all .2s ease;
 
@@ -33,8 +34,8 @@
   }
 
   summary {
-    font-size: 1.2rem;
-    padding: 10px 20px;
+    font-size: var(--font-size-md);
+    padding: var(--spacing-sm) var(--spacing-md);
     list-style: none;
     cursor: pointer;
     position: relative;
@@ -47,7 +48,7 @@
       content: '';
       background: url("../../../../public/chevron.svg");
       position: absolute;
-      top: 20px;
+      top: var(--spacing-md);
       right: 0;
       width: 28px;
       height: 28px;
@@ -58,7 +59,7 @@
 
   .content {
     display: none;
-    padding: 10px 20px;
+    padding: var(--spacing-sm) var(--spacing-md);
     transform-origin: 0 0;
     overflow: hidden;
     opacity: 0;

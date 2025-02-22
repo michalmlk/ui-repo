@@ -1,5 +1,6 @@
-import './App.css';
 import { AccordionGroup } from './components/ui/accordion-group/AccordionGroup.tsx';
+import { Input } from './components/ui/input/Input.tsx';
+import './index.css';
 
 const items = [
     {
@@ -29,6 +30,7 @@ function App() {
         <>
             <div>
                 <AccordionGroup items={items} />
+                <Input type="text" label="test label" placeholder="test placeholder" />
             </div>
         </>
     );

@@ -1,0 +1,68 @@
+:root {
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    --spacing-lg: 30px;
+    --spacing-xl: 40px;
+    --spacing-xxl: 50px;
+
+
+    --color-primary: #1976D2; /* Primary blue */
+    --color-secondary: #DC004E; /* Secondary red */
+    --color-accent: #FF9800; /* Accent orange */
+    --color-background: #F5F5F5; /* Light gray background */
+    --color-text: #212121; /* Dark text */
+
+    --color-primary-light: #63A4FF;
+    --color-primary-dark: #115293;
+
+    --color-secondary-light: #FF5C8D;
+    --color-secondary-dark: #9A0036;
+
+    --accordion-border-color: #dddddd;
+    --accordion-border-width: 2px;
+    --accordion-border-radius: 2px;
+
+    /*button*/
+    --button-height-sm: 35px;
+    --button-height-md: 40px;
+    --button-height-lg: 50px;
+
+    --button-width-sm: 100px;
+    --button-width-md: 140px;
+    --button-width-lg: 200px;
+
+    --border-width: 3px;
+
+    --font-size-xs: 12px;
+    --font-size-sm: 16px;
+    --font-size-md: 18px;
+    --font-size-lg: 22px;
+
+    --font-weight-light: 300;
+    --font-weight-normal: 500;
+    --font-weight-bold: 700;
+
+    --input-height: 50px;
+    --input-min-width: 120px;
+
+    --outline-color: var(--color-primary-light);
+}
+
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    padding: var(--spacing-md);
+    margin: 0;
+}
+
+* > {
+    box-sizing: border-box;
+}
