@@ -1,0 +1,45 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+
+  .comboboxInputWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-xs);
+    align-items: flex-end;
+
+    .button {
+      width: var(--button-height-lg);
+      height: var(--button-height-lg);
+      border: var(--border-width) solid var(--color-primary-dark);
+      background-color: #ffffff;
+      font-size: var(--font-size-lg);
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+}
+
+.dropdownList {
+  list-style: none;
+  padding-left: 0;
+
+  .dropdownListItem {
+    padding: var(--spacing-sm);
+    border: 1px solid var(--color-primary-dark);
+    border-top: none;
+
+    &:first-child {
+      border: 1px solid var(--color-primary-dark);
+    }
+
+    &.highlighted {
+      background-color: var(--color-primary-light);
+    }
+  }
+}
