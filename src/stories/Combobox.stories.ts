@@ -39,6 +39,6 @@ export const Base: Story = {
         ],
         keysToFilter: ['id'],
         selectedItemLabel: 'title',
-        renderItem: renderBookItem,
+        renderItemContent: renderBookItem,
     },
 };

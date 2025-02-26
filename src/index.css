@@ -35,9 +35,11 @@
     --border-width: 3px;
     --border-radius: 4px;
 
+    --combobox-dropdown-highlighted: #d3d3d3;
+
     --font-size-xs: 12px;
-    --font-size-sm: 16px;
-    --font-size-md: 18px;
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
     --font-size-lg: 22px;
 
     --font-weight-light: 300;

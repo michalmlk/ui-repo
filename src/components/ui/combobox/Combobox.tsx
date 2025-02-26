@@ -1,25 +1,31 @@
-import { useCombobox, UseComboboxReturnValue, useMultipleSelection } from 'downshift';
+import { useCombobox, useMultipleSelection } from 'downshift';
 import { ReactNode, useMemo, useState } from 'react';
 import type { Item, StringProps } from './utils';
 import { getFilteredItems } from './utils';
+import styles from './Combobox.module.scss';
+import classNames from 'classnames';
+import { IconX } from '@tabler/icons-react';
 
-export type RenderItemFn<T extends Item> = (
-    item: T,
-    index: number,
-    highlightedIndex: number,
-    getItemProps: UseComboboxReturnValue<T>['getItemProps'],
-    selectedItem: T,
-) => ReactNode;
+export type RenderItemFn<T extends Item> = (item: T) => ReactNode;
 
-export interface MultipleComboboxProps<T extends Item> {
+export interface MultipleComboboxProps<T extends Item = Item> {
     initialItems: T[];
     keysToFilter: (keyof StringProps<T>)[];
     selectedItemLabel: keyof StringProps<T>;
-    renderItem: RenderItemFn<T>;
+    renderItemContent: (item: T) => ReactNode;
+    label?: string;
+    inputPlaceholder?: string;
 }
 
 export const MultipleCombobox = <T extends Item>(props: MultipleComboboxProps) => {
-    const { initialItems, keysToFilter, selectedItemLabel, renderItem } = props;
+    const {
+        initialItems,
+        keysToFilter,
+        selectedItemLabel,
+        renderItemContent,
+        label,
+        inputPlaceholder,
+    } = props;
     const [inputValue, setInputValue] = useState('');
     const [selectedItems, setSelectedItems] = useState<T[]>([]);
 
@@ -52,7 +58,7 @@ export const MultipleCombobox = <T extends Item>(props: MultipleComboboxProps) =
         getInputProps,
         highlightedIndex,
         getItemProps,
-        selectedItem,
+        // selectedItem
     } = useCombobox({
         items,
         itemToString(item) {
@@ -82,7 +88,7 @@ export const MultipleCombobox = <T extends Item>(props: MultipleComboboxProps) =
                 case useCombobox.stateChangeTypes.ItemClick:
                 case useCombobox.stateChangeTypes.InputBlur:
                     if (newSelectedItem) {
-                        setSelectedItems([...selectedItems, newSelectedItem]);
+                        setSelectedItems([...selectedItems, newSelectedItem] as T[]);
                         setInputValue('');
                     }
                     break;
@@ -98,16 +104,14 @@ export const MultipleCombobox = <T extends Item>(props: MultipleComboboxProps) =
     });
 
     return (
-        <div className="w-[592px]">
-            <div className="flex flex-col gap-1">
-                <label className="w-fit" {...getLabelProps()}>
-                    Pick some books:
-                </label>
-                <div className="shadow-sm bg-white inline-flex gap-2 items-center flex-wrap p-1.5">
+        <div className={styles.containerWrapper}>
+            <div className={styles.inputWrapper}>
+                <label {...getLabelProps()}>{label}</label>
+                <div className={styles.selectionWrapper}>
                     {selectedItems.map(function renderSelectedItem(selectedItemForRender, index) {
                         return (
                             <span
-                                className="bg-gray-100 rounded-md px-1 focus:bg-red-400"
+                                className={styles.selectedItem}
                                 key={`selected-item-${index}`}
                                 {...getSelectedItemProps({
                                     selectedItem: selectedItemForRender,
@@ -115,45 +119,54 @@ export const MultipleCombobox = <T extends Item>(props: MultipleComboboxProps) =
                                 })}
                             >
                                 {selectedItemForRender[selectedItemLabel]}
-                                <span
-                                    className="px-1 cursor-pointer"
+                                <button
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         removeSelectedItem(selectedItemForRender);
                                     }}
                                 >
-                                    &#10005;
-                                </span>
+                                    X
+                                </button>
                             </span>
                         );
                     })}
-                    <div className="flex gap-0.5 grow">
-                        <input
-                            placeholder="Best book ever"
-                            className="w-full"
-                            {...getInputProps(getDropdownProps({ preventKeyAction: isOpen }))}
-                        />
-                        <button
-                            aria-label="toggle menu"
-                            className="px-2"
-                            type="button"
-                            {...getToggleButtonProps()}
-                        >
-                            &#8595;
-                        </button>
-                    </div>
+                </div>
+                <div className={styles.inputContainer}>
+                    <input
+                        className={styles.input}
+                        placeholder={inputPlaceholder}
+                        {...getInputProps(getDropdownProps({ preventKeyAction: isOpen }))}
+                    />
+                    <button
+                        aria-label="toggle menu"
+                        className={styles.dropdownToggle}
+                        type="button"
+                        {...getToggleButtonProps()}
+                    >
+                        &#8595;
+                    </button>
                 </div>
             </div>
             <ul
-                className={`absolute w-inherit bg-white mt-1 shadow-md max-h-80 overflow-scroll p-0 z-10 ${
-                    !(isOpen && items.length) && 'hidden'
-                }`}
+                className={classNames({
+                    [styles.dropdownList]: true,
+                    [styles.hidden]: !(isOpen && items.length),
+                })}
                 {...getMenuProps()}
             >
                 {isOpen &&
-                    items.map((item, index) =>
-                        renderItem(item, index, highlightedIndex, getItemProps, selectedItem),
-                    )}
+                    items.map((item, index) => (
+                        <li
+                            className={classNames(
+                                styles.item,
+                                highlightedIndex === index && styles.highlighted,
+                            )}
+                            key={`${item.id}${index}`}
+                            {...getItemProps({ item, index })}
+                        >
+                            {renderItemContent(item)}
+                        </li>
+                    ))}
             </ul>
         </div>
     );

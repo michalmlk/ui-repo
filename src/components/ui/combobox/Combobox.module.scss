@@ -1,0 +1,94 @@
+.containerWrapper {
+  display: flex;
+  flex-direction: column;
+
+  .inputWrapper {
+
+    .selectionWrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-xs);
+      margin-bottom: var(--spacing-sm);
+
+      .selectedItem {
+        border: 3px solid var(--color-primary-light);
+        padding: var(--spacing-xs);
+        border-radius: var(--border-radius);
+
+        button {
+          margin-left: var(--spacing-xs);
+          border: none;
+          background: none;
+          border-radius: 50px;
+          height: 20px;
+          width: 20px;
+          text-align: center;
+          position: relative;
+          transition: background-color .2s ease-in-out;
+          cursor: pointer;
+
+          &:hover {
+            background-color: var(--color-primary-light);
+          }
+        }
+      }
+    }
+
+    .inputContainer {
+      display: flex;
+      gap: var(--spacing-xs);
+      height: var(--input-height);
+
+      .input {
+        height: var(--input-height);
+        width: 100%;
+        border: var(--border-width) solid var(--color-primary-dark);
+        padding-left: var(--spacing-sm);
+        font-size: var(--font-size-md);
+        box-sizing: border-box;
+        border-radius: var(--border-radius);
+      }
+
+      .dropdownToggle {
+        width: var(--input-height);
+        height: var(--input-height);
+        border: var(--border-width) solid var(--color-primary-dark);
+        background-color: #ffffff;
+        cursor: pointer;
+        border-radius: var(--border-radius);
+      }
+    }
+  }
+
+
+  .dropdownList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    border: 3px solid var(--color-primary-dark);
+    padding: 0;
+    width: 100%;
+
+
+    &.hidden {
+      display: none;
+    }
+
+    .item {
+      border-bottom: 3px solid var(--color-primary-dark);
+      padding: var(--spacing-sm);
+      font-size: var(--font-size-sm);
+      cursor: pointer;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &.highlighted {
+        background-color: var(--color-primary-light);
+        font-weight: var(--font-weight-bold);
+      }
+    }
+  }
+
+}

@@ -1,31 +1,33 @@
 import { Item } from '../../components/ui/combobox/utils';
 import { RenderItemFn } from '../../components/ui/combobox/Combobox.tsx';
-import classNames from 'classnames';
+import styled from 'styled-components';
 
 interface Book extends Item {
     title: string;
     author: string;
 }
 
-export const renderBookItem: RenderItemFn<Book> = (
-    item,
-    index,
-    highlightedIndex,
-    getItemProps,
-    selectedItem,
-) => {
+const StyledBookItem = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+
+    span:nth-of-type(1) {
+        font-size: var(--font-size-sm);
+        font-weight: bold;
+        font-style: italic;
+    }
+
+    span:nth-of-type(2) {
+        font-size: var(--font-size-xs);
+    }
+`;
+
+export const renderBookItem: RenderItemFn<Book> = (item) => {
     return (
-        <li
-            className={classNames(
-                highlightedIndex === index && 'bg-blue-300',
-                selectedItem === item && 'font-bold',
-                'py-2 px-3 shadow-sm flex flex-col',
-            )}
-            key={`${item.id}${index}`}
-            {...getItemProps({ item, index })}
-        >
+        <StyledBookItem>
             <span>{item.title}</span>
             <span>{item.author}</span>
-        </li>
+        </StyledBookItem>
     );
 };
