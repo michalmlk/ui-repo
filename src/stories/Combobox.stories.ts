@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { MultipleCombobox } from '../components/ui/combobox/Combobox.tsx';
+import { renderBookItem } from './helpers';
 
 const meta = {
     title: 'Example/Combobox/Base',
@@ -38,5 +39,6 @@ export const Base: Story = {
         ],
         keysToFilter: ['id'],
         selectedItemLabel: 'title',
+        renderItem: renderBookItem,
     },
 };

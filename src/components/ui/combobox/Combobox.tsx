@@ -1,54 +1,33 @@
-import { useCombobox, useMultipleSelection } from 'downshift';
-import { useMemo, useState } from 'react';
-import classNames from 'classnames';
+import { useCombobox, UseComboboxReturnValue, useMultipleSelection } from 'downshift';
+import { ReactNode, useMemo, useState } from 'react';
+import type { Item, StringProps } from './utils';
+import { getFilteredItems } from './utils';
 
-interface Item {
-    id: string;
-}
-
-type StringProps<T> = {
-    [K in keyof T as T[K] extends string ? K : never]: T[K];
-};
-
-const anyKeyValueMatch = <T extends Item>(
-    keysToFilter: (keyof StringProps<T>)[],
+export type RenderItemFn<T extends Item> = (
     item: T,
-    inputValue: string,
-): boolean => {
-    return !!keysToFilter.find((key) => (item[key] as string).toLowerCase().includes(inputValue));
-};
+    index: number,
+    highlightedIndex: number,
+    getItemProps: UseComboboxReturnValue<T>['getItemProps'],
+    selectedItem: T,
+) => ReactNode;
 
-function getFilteredItems<T extends Item>(
-    items: T[],
-    selectedItems: T[],
-    inputValue: string,
-    keysToFilter: (keyof StringProps<T>)[],
-) {
-    const lowerCasedInputValue = inputValue.toLowerCase();
-
-    return items.filter(function filterItem(item: T) {
-        return (
-            !selectedItems.includes(item) &&
-            anyKeyValueMatch(keysToFilter, item, lowerCasedInputValue)
-        );
-    });
-}
-
-export const MultipleCombobox = <T extends Item>({
-    initialItems,
-    keysToFilter,
-    selectedItemLabel,
-}: {
+export interface MultipleComboboxProps<T extends Item> {
     initialItems: T[];
     keysToFilter: (keyof StringProps<T>)[];
     selectedItemLabel: keyof StringProps<T>;
-}) => {
+    renderItem: RenderItemFn<T>;
+}
+
+export const MultipleCombobox = <T extends Item>(props: MultipleComboboxProps) => {
+    const { initialItems, keysToFilter, selectedItemLabel, renderItem } = props;
     const [inputValue, setInputValue] = useState('');
     const [selectedItems, setSelectedItems] = useState<T[]>([]);
+
     const items = useMemo(
         () => getFilteredItems(initialItems, selectedItems, inputValue, keysToFilter),
         [selectedItems, inputValue],
     );
+
     const { getSelectedItemProps, getDropdownProps, removeSelectedItem } = useMultipleSelection({
         selectedItems,
         onStateChange({ selectedItems: newSelectedItems, type }) {
@@ -64,6 +43,7 @@ export const MultipleCombobox = <T extends Item>({
             }
         },
     });
+
     const {
         isOpen,
         getToggleButtonProps,
@@ -171,20 +151,9 @@ export const MultipleCombobox = <T extends Item>({
                 {...getMenuProps()}
             >
                 {isOpen &&
-                    items.map((item, index) => (
-                        <li
-                            className={classNames(
-                                highlightedIndex === index && 'bg-blue-300',
-                                selectedItem === item && 'font-bold',
-                                'py-2 px-3 shadow-sm flex flex-col',
-                            )}
-                            key={`${item.id}${index}`}
-                            {...getItemProps({ item, index })}
-                        >
-                            <span>{item.title}</span>
-                            <span className="text-sm text-gray-700">{item.author}</span>
-                        </li>
-                    ))}
+                    items.map((item, index) =>
+                        renderItem(item, index, highlightedIndex, getItemProps, selectedItem),
+                    )}
             </ul>
         </div>
     );
