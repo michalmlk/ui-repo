@@ -1,29 +1,26 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import MultipleComboBox from '../components/ui/combobox/Combobox.tsx';
-import { renderBookItem } from '../components/ui/combobox/utils/renderBookItem.tsx';
+import { MultipleCombobox } from '../components/ui/combobox/Combobox.tsx';
 
 const meta = {
     title: 'Example/Combobox/Base',
-    component: MultipleComboBox,
+    component: MultipleCombobox,
     parameters: {
         layout: 'centered',
     },
     tags: ['autodocs'],
     argTypes: {
-        items: { type: 'symbol' },
+        initialItems: { type: 'symbol' },
     },
     args: {},
-} satisfies Meta<typeof MultipleComboBox>;
+} satisfies Meta<typeof MultipleCombobox>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-
 export const Base: Story = {
     args: {
-        renderItem: renderBookItem,
-        items: [
+        initialItems: [
             { id: 'book-1', author: 'Harper Lee', title: 'To Kill a Mockingbird' },
             { id: 'book-2', author: 'Lev Tolstoy', title: 'War and Peace' },
             { id: 'book-3', author: 'Fyodor Dostoyevsy', title: 'The Idiot' },
@@ -39,5 +36,7 @@ export const Base: Story = {
             { id: 'book-9', author: 'Lev Tolstoy', title: 'Anna Karenina' },
             { id: 'book-10', author: 'Fyodor Dostoevsky', title: 'Crime and Punishment' },
         ],
+        keysToFilter: ['id'],
+        selectedItemLabel: 'title',
     },
 };
