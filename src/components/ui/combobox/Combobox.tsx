@@ -4,7 +4,6 @@ import type { Item, StringProps } from './utils';
 import { getFilteredItems } from './utils';
 import styles from './Combobox.module.scss';
 import classNames from 'classnames';
-import { IconX } from '@tabler/icons-react';
 
 export type RenderItemFn<T extends Item> = (item: T) => ReactNode;
 

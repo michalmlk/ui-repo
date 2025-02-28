@@ -12,10 +12,12 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@react-aria/example-theme": "^1.0.5",
     "@tabler/icons-react": "^3.30.0",
     "classnames": "^2.5.1",
     "downshift": "^9.0.8",
     "react": "^19.0.0",
+    "react-aria-components": "^1.6.0",
     "react-dom": "^19.0.0",
     "styled-components": "^6.1.15"
   },
